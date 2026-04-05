@@ -97,6 +97,12 @@ velora-ai/
 
 ---
 
+## 👥 Contributors
+- **Neemasree** ([GitHub](https://github.com/Neemasree))
+- **yasish** ([GitHub](https://github.com/yasish08))
+
+---
+
 ## 📞 Support & Contribution
 
 If you find this project useful, feel free to **Fork** it and submit a **Pull Request**! Built with ❤️ for ocean intelligence and climate monitoring.

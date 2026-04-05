@@ -444,6 +444,25 @@ def regions():
     return {"regions": list(REGION_BOUNDS.keys())}
 
 
+@app.get("/stats/summary")
+def stats_summary():
+    """Returns a quick summary of records per region."""
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    summary = {}
+    for region, bounds in REGION_BOUNDS.items():
+        lon_min, lon_max, lat_min, lat_max = bounds
+        cur.execute(
+            "SELECT COUNT(*) FROM argo_data WHERE longitude >= ? AND longitude <= ? AND latitude >= ? AND latitude <= ?",
+            [lon_min, lon_max, lat_min, lat_max]
+        )
+        summary[region] = cur.fetchone()[0]
+    
+    conn.close()
+    return {"summary": summary, "total": sum(summary.values())}
+
+
 @app.get("/year-range")
 def year_range():
     conn = get_db_connection()

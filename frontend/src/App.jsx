@@ -64,6 +64,8 @@ export default function App() {
   const [messages, setMessages]     = useState([]);
   const [result, setResult]         = useState(null);
   const [loading, setLoading]       = useState(false);
+  const [globalStats, setGlobalStats] = useState(null);
+  const [showStats, setShowStats]   = useState(false);
   const chatEndRef                  = useRef(null);
   const queryCache                  = useRef({}); // Cache for query results
 
@@ -83,6 +85,17 @@ export default function App() {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const fetchGlobalStats = async () => {
+    try {
+      setShowStats(true);
+      if (globalStats) return;
+      const res = await axios.get(`${API_URL}/stats/summary`);
+      setGlobalStats(res.data);
+    } catch (err) {
+      console.error("Failed to fetch global stats", err);
+    }
+  };
 
   const sendQuery = async (question) => {
     if (!question.trim()) return;
@@ -207,6 +220,9 @@ export default function App() {
           </div>
         </div>
         <div className="header-status">
+          <button className="stats-btn" onClick={fetchGlobalStats}>
+            📊 Global Stats
+          </button>
           <div className={`status-dot ${connected ? "connected" : ""}`} />
           {connected ? "Backend Connected" : "Backend Offline"}
         </div>
@@ -540,6 +556,37 @@ export default function App() {
       <footer className="footer">
         Built with <span>React</span> + <span>FastAPI</span> + <span>ARGO Float Data</span> · Velora AI © 2025
       </footer>
+
+      {/* ── GLOBAL STATS MODAL ── */}
+      {showStats && (
+        <div className="modal-overlay" onClick={() => setShowStats(false)}>
+          <div className="modal-content glass" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>🌎 Global Dataset Summary</h3>
+              <button className="close-btn" onClick={() => setShowStats(false)}>×</button>
+            </div>
+            {!globalStats ? (
+              <div className="modal-loading">
+                <div className="mini-spinner"></div> Loading telemetry counts...
+              </div>
+            ) : (
+              <div className="modal-body">
+                <div className="total-badge">
+                  <strong>{globalStats.total.toLocaleString()}</strong> Total Measurements
+                </div>
+                <div className="region-grid">
+                  {Object.entries(globalStats.summary).map(([region, count]) => (
+                    <div key={region} className="region-stat-item">
+                      <span className="region-name">{REGION_EMOJIS[region]} {region}</span>
+                      <span className="region-count">{count.toLocaleString()}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
