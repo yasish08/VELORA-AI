@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "contributors": [
+    "Neemasree <neemasree.k2024cse@sece.ac.in>",
+    "yasish <yasish08@github.com>"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
