@@ -1,7 +1,5 @@
 # 🌊 Velora AI - Ocean Intelligence Platform
 
-![Velora AI Dashboard Overlay](assets/hero_dashboard.png)
-
 > **AI-powered natural language interface for ocean data analysis and climate predictions.**
 > Built to bridge the gap between complex ARGO oceanic data and actionable insights using modern LLMs and predictive modeling.
 
@@ -64,24 +62,10 @@ cd VELORA-AI
 
 ### 3. Launching the Platform
 
-Use the provided automation scripts for a quick-start experience.
+Use the provided automation scripts for a quick-start experience:
 
-#### **Windows (Direct Execute)**
 - Run `.\start-backend.bat`
 - Run `.\start-frontend.bat`
-
-#### **Manual (Cross-Platform)**
-**Backend:**
-```bash
-cd backend
-python -m uvicorn main:app --reload
-```
-
-**Frontend:**
-```bash
-cd frontend
-npm run dev
-```
 
 The platform will be available at **[http://localhost:5173](http://localhost:5173)**.
 
@@ -107,17 +91,9 @@ velora-ai/
 ├── frontend/             # React + Vite Application
 │   ├── src/              # Components (Charts, Maps, Chat UI)
 │   └── .env              # Front-end API Configuration
-├── assets/               # Branding and README media
 ├── start-backend.bat     # Windows bootstrapper
 └── start-frontend.bat    # Windows bootstrapper
 ```
-
----
-
-## 🏆 Presentation Highlights
-- **Instant Setup**: Zero-config bootstrap scripts for rapid deployment.
-- **Premium UX**: High-fidelity dark mode designed for professional data analysis.
-- **Real-World Impact**: Direct integration with one of the world's most critical climate datasets (ARGO).
 
 ---
 
